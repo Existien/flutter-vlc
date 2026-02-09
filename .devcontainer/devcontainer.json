@@ -1,0 +1,43 @@
+// For format details, see https://aka.ms/devcontainer.json.
+{
+  "name": "Flutter",
+	"build": {
+		"dockerfile": "Dockerfile",
+    "args": {
+      "USER": "${localEnv:USER}"
+    },
+    "options": [
+      "--build-context=tmp=/tmp/flutter-sdk"
+    ]
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Dart-Code.flutter"
+      ]
+    }
+  },
+  "initializeCommand": ".devcontainer/initialize.sh",
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "./config-flutter-sdk": {}
+  },
+  "containerEnv": {
+    "DISPLAY": "${localEnv:DISPLAY}",
+    "XAUTHORITY": "/xauth/user.docker.xauth"
+  },
+  "mounts": [
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,readonly",
+    "source=/tmp/flutter-sdk/user.docker.xauth,target=/xauth/user.docker.xauth,type=bind,readonly"
+  ],
+  "runArgs": [
+    "--ipc=host",
+    "--device=/dev/dri:/dev/dri"
+  ],
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+  // Configure tool-specific properties.
+  // "customizations": {},
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  "remoteUser": "${localEnv:USER}"
+}
