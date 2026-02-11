@@ -1,0 +1,14 @@
+{
+    "id": "vlc",
+    "version": "0.0.1",
+    "mounts": [
+        {
+            "source": "${localEnv:XDG_RUNTIME_DIR}/pulse",
+            "target": "/run/pulse,ro",
+            "type": "bind"
+        }
+    ],
+    "containerEnv": {
+        "PULSE_SERVER": "/run/pulse/native"
+    }
+}

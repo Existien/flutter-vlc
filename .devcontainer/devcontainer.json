@@ -21,7 +21,8 @@
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
     "./config-flutter-sdk": {},
-    "./enable-dbus": {}
+    "./enable-dbus": {},
+    "./vlc": {}
   },
   "containerEnv": {
     "DISPLAY": "${localEnv:DISPLAY}",
