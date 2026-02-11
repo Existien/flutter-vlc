@@ -120,3 +120,4 @@ app.*.symbols
 
 # User specific files
 .devcontainer/user.env
+*.mp3
