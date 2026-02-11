@@ -1,0 +1,5 @@
+{
+    "id": "enable-dbus",
+    "version": "0.0.1",
+    "entrypoint": "/usr/local/share/enable-dbus/entrypoint.sh"
+}

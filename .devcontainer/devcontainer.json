@@ -20,7 +20,8 @@
   "initializeCommand": ".devcontainer/initialize.sh",
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
-    "./config-flutter-sdk": {}
+    "./config-flutter-sdk": {},
+    "./enable-dbus": {}
   },
   "containerEnv": {
     "DISPLAY": "${localEnv:DISPLAY}",

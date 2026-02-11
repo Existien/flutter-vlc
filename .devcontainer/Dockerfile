@@ -38,8 +38,6 @@ ENV LANG=en_US.UTF-8
 ARG USER
 
 RUN --mount=from=tmp,target=/tmp/ . /tmp/user.env \
- && addgroup --gid $REMOTE_GID $REMOTE_USER \
- && adduser --disabled-password --uid $REMOTE_UID --gid $REMOTE_GID $REMOTE_USER \
  && mkdir /sdk \
  && chown -R ${REMOTE_UID}:${REMOTE_GID} /sdk
 
