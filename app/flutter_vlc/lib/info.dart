@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import './services/heartbeat_provider.dart';
+import 'services/metadata_provider.dart';
 
 class Info extends StatelessWidget {
   const Info({super.key});
@@ -14,10 +14,15 @@ class Info extends StatelessWidget {
         final metadata = ref.watch(metadataProvider).value;
         return Column(
           children: [
-            Text(metadata?.title ?? metadata?.url ?? "n/a"),
-            Text(metadata?.album ?? "n/a"),
-            Text((metadata?.artist ?? ["n/a"]).join(", ")),
-            Text((metadata?.genre ?? ["n/a"]).join(", ")),
+            Text(
+              metadata?.title ??
+                  (metadata?.url != null
+                      ? Uri.parse(metadata?.url ?? "None").pathSegments.last
+                      : ""),
+            ),
+            Text(metadata?.album ?? ""),
+            Text((metadata?.artist ?? [""]).join(", ")),
+            Text((metadata?.genre ?? [""]).join(", ")),
             if (metadata?.artUrl != null)
               Image.file(
                 File.fromUri(Uri.parse(metadata!.artUrl!)),
