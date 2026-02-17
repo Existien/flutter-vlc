@@ -6,3 +6,5 @@ apt-get update && \
     vlc \
     && \
     rm -rf /var/lib/apt/lists/*
+
+cp vlc_backend /usr/local/bin/

@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e -u
+
+function parent_watcher() {
+    this_pid=$1
+    parent_pid=$2
+    while true; do
+        if ! ps -A -o pid | grep -q $parent_pid; then
+            kill $this_pid
+        fi
+        sleep 1
+    done
+
+}
+
+trap 'pkill --signal SIGTERM --parent $$' EXIT SIGTERM SIGKILL
+parent_watcher $$ $1 &
+vlc -I dummy &
+
+wait

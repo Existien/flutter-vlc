@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'main_layout.dart';
+import 'dart:io';
 
-void main() {
+void main() async {
+  await Process.start("vlc_backend", [pid.toString()], mode: ProcessStartMode.detached);
   runApp(const MainApp());
 }
 
