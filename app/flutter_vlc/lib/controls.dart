@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'services/client.dart';
+import 'services/vlc_client.dart';
 
 class Controls extends StatelessWidget {
   const Controls({super.key});

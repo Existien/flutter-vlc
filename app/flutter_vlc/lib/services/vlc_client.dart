@@ -1,54 +1,11 @@
 import 'dart:async';
 
 import 'package:dbus/dbus.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_vlc/services/interfaces/media_player2.dart';
-
+import '../models/metadata.dart';
 import 'interfaces/media_player2_player.dart';
 
-class Metadata {
-  final String album;
-  final DBusObjectPath? trackid;
-  final String? url;
-  final String title;
-  final List<String> genre;
-  final List<String> artist;
-  final String? artUrl;
-  Metadata({
-    this.album = "n/a",
-    this.trackid,
-    this.url = "n/a",
-    this.title = "n/a",
-    this.genre = const [],
-    this.artist = const [],
-    this.artUrl,
-  });
-}
-
-final metadataProvider = StreamProvider<Metadata>((ref) {
-  final heartbeat = ref.watch(heartbeatProvider);
-  return switch (heartbeat) {
-    HeartbeatState.connected => client.getMetadataStream(),
-    _ => Stream.value(Metadata()),
-  };
-});
-
-final heartbeatProvider = NotifierProvider(HeartbeatNotifier.new);
-
-enum HeartbeatState { connected, disconnected }
-
-class HeartbeatNotifier extends Notifier<HeartbeatState> {
-  @override
-  HeartbeatState build() {
-    final timer = Timer.periodic(Duration(seconds: 1), (timer) async {
-      state = await client.isConnected()
-          ? HeartbeatState.connected
-          : HeartbeatState.disconnected;
-    });
-    ref.onDispose(timer.cancel);
-    return HeartbeatState.disconnected;
-  }
-}
+final client = VLCClient();
 
 class VLCClient {
   DBusClient? _client;
@@ -69,23 +26,17 @@ class VLCClient {
       yield await getMetadata();
       if (_playerInterface != null) {
         yield* _playerInterface!.propertiesChanged
-            .handleError(print)
             .where(
               (signal) => (signal.changedProperties.containsKey("Metadata")),
             )
             .map((signal) {
-              final parsed = (signal.changedProperties["Metadata"] as DBusDict)
-                  .toNative();
-              return Metadata(
-                album: parsed["xesam:album"],
-                trackid: parsed["mpris:trackid"],
-                url: parsed["xesam:url"],
-                title: parsed["xesam:title"],
-                genre: List<String>.from(parsed["xesam:genre"]),
-                artUrl: parsed["mpris:artUrl"],
-                artist: List<String>.from(parsed["xesam:artist"]),
+              return _parseMetadata(
+                ((signal.changedProperties["Metadata"] as DBusDict).toNative()
+                        as Map<dynamic, dynamic>)
+                    .map((key, value) => MapEntry<String, dynamic>(key, value)),
               );
-            });
+            })
+            .handleError(print);
       }
     }();
   }
@@ -94,18 +45,23 @@ class VLCClient {
     final parsed = await _tryOrLog(
       () async => await _playerInterface?.getMetadata(),
     );
-    return switch (parsed) {
-      Map<String, DBusValue> parsed => Metadata(
-        album: parsed["xesam:album"]?.toNative(),
-        trackid: parsed["mpris:trackid"]?.toNative(),
-        url: parsed["xesam:url"]?.toNative(),
-        title: parsed["xesam:title"]?.toNative(),
-        genre: List<String>.from(parsed["xesam:genre"]?.toNative()),
-        artUrl: parsed["mpris:artUrl"]?.toNative(),
-        artist: List<String>.from(parsed["xesam:artist"]?.toNative()),
-      ),
-      _ => Metadata(),
-    };
+    if (parsed == null) return Metadata();
+
+    return _parseMetadata(
+      parsed.map((key, value) => MapEntry(key, value.toNative())),
+    );
+  }
+
+  Metadata _parseMetadata(Map<String, dynamic> metadata) {
+    return Metadata(
+      album: metadata["xesam:album"],
+      trackid: metadata["mpris:trackid"]?.toString(),
+      url: metadata["xesam:url"],
+      title: metadata["xesam:title"],
+      genre: List<String>.from(metadata["xesam:genre"] ?? []),
+      artUrl: metadata["mpris:artUrl"],
+      artist: List<String>.from(metadata["xesam:artist"] ?? []),
+    );
   }
 
   void _connect() {
@@ -169,5 +125,3 @@ class VLCClient {
     });
   }
 }
-
-final client = VLCClient();
