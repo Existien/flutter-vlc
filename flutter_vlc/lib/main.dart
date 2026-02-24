@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'main_layout.dart';
+import 'ui/main_layout.dart';
 import 'dart:io';
 
 void main() async {

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_vlc/services/metadata_provider.dart';
-import 'package:flutter_vlc/services/playback_status_provider.dart';
-
-import '../models/metadata.dart';
-import '../services/vlc_client.dart';
+import '../../data/providers/metadata_provider.dart';
+import '../../data/providers/playback_status_provider.dart';
+import '../../data/models/metadata.dart';
+import '../../data/services/vlc_client.dart';
 
 class Track extends StatelessWidget {
   const Track({super.key, this.metadata});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../services/vlc_client.dart';
+import '../../../data/services/vlc_client.dart';
 
 class NextButton extends StatelessWidget {
   const NextButton({super.key});

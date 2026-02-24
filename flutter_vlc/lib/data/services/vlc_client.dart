@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:dbus/dbus.dart';
-import 'package:flutter_vlc/services/interfaces/media_player2.dart';
 import '../models/metadata.dart';
 import '../models/loop_status.dart';
 import '../models/playback_status.dart';
+import 'interfaces/media_player2.dart';
 import 'interfaces/media_player2_player.dart';
 
 final client = VLCClient();

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../services/playback_status_provider.dart';
-import '../../services/vlc_client.dart';
+import '../../../data/providers/playback_status_provider.dart';
+import '../../../data/services/vlc_client.dart';
 
 class PlayButton extends StatelessWidget {
   const PlayButton({super.key});

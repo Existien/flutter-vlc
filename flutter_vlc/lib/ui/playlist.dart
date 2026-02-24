@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'playlist/track.dart';
-import 'services/tracks_provider.dart';
-import 'services/vlc_client.dart';
+import '../data/providers/tracks_provider.dart';
+import '../data/services/vlc_client.dart';
 
 class PlayList extends StatefulWidget {
   const PlayList({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../services/shuffle_provider.dart';
-import '../../services/vlc_client.dart';
+import '../../../data/providers/shuffle_provider.dart';
+import '../../../data/services/vlc_client.dart';
 
 class ShuffleButton extends StatelessWidget {
   const ShuffleButton({super.key});

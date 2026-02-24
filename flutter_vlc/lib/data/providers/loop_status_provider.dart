@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import './vlc_client.dart' show client;
+import '../services/vlc_client.dart' show client;
 import '../models/loop_status.dart';
 import 'dart:async';
 import 'heartbeat_provider.dart';

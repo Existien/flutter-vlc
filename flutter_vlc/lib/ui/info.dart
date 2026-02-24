@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'services/metadata_provider.dart';
+import '../data/providers/metadata_provider.dart';
 
 class Info extends StatelessWidget {
   const Info({super.key});

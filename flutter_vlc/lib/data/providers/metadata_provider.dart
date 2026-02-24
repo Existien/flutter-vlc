@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_vlc/models/metadata.dart' show Metadata;
-import './vlc_client.dart' show client;
+import '../models/metadata.dart' show Metadata;
+import '../services/vlc_client.dart' show client;
 import 'dart:async';
 
 import 'heartbeat_provider.dart';

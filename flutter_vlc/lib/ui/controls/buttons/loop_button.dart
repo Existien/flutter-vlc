@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../services/loop_status_provider.dart';
-import '../../services/vlc_client.dart';
+import '../../../data/providers/loop_status_provider.dart';
+import '../../../data/services/vlc_client.dart';
 
 class LoopButton extends StatelessWidget {
   const LoopButton({super.key});
